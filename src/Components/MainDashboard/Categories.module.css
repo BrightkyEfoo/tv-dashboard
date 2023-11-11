@@ -1,0 +1,128 @@
+.container {
+  display: grid;
+  grid-template: repeat(2, 300px) / repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  grid-auto-rows: 300px;
+}
+
+.addCategory {
+  position: absolute;
+  top: 105px;
+  right: 90px;
+  height: 50px;
+  width: 50px;
+  border: none;
+  font-size: 17px;
+  background-color: var(--primary-blue);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.addCategory:hover {
+  background-color: var(--secondary-blue);
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.contentContainer > .thumbsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.thumbsContainer > .thumbs {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
+
+.contentContainer > .title {
+  grid-column: 1/-1;
+}
+
+.modalContainer {
+  height: 150px;
+  padding: 15px;
+  background-color: var(--primary-white);
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(4, 1fr);
+  column-gap: 15px;
+  align-items: center;
+}
+
+.modalContainer > p {
+  margin: 0;
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.modalContainer > :nth-child(2) {
+  border: 1px solid var(--secondary-black);
+  border-radius: 8px;
+  height: 35px;
+  grid-column: -3 / -2;
+  background-color: var(--primary-red);
+  color: var(--white-text);
+}
+
+.modalContainer > :last-child {
+  height: 35px;
+  border-radius: 8px;
+  grid-column: -2/-1;
+  background-color: var(--primary-blue);
+  border: 1px solid var(--secondary-black);
+  color: var(--white-text);
+}
+
+.createModalContainer {
+  height: 150px;
+  padding: 15px;
+  background-color: var(--primary-white);
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(2, 1fr);
+  gap: 8px;
+}
+
+.createModalContainer > :nth-child(1) {
+  grid-column: span 2;
+  margin: 0;
+}
+
+.createModalContainer > :nth-child(2) {
+  grid-column: span 2;
+}
+
+.createModalContainer > :nth-child(3) {
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: 15px;
+  color: var(--white-text);
+}
+
+.createModalContainer > :nth-child(4) {
+  background-color: var(--primary-red);
+  border: none;
+  border-radius: 15px;
+}

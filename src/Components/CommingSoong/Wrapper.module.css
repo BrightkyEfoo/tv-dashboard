@@ -1,0 +1,12 @@
+.container {
+  position: relative;
+}
+
+.container > .soonSpan {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: var(--secondary-gray);
+  border-radius: 8px;
+  padding: 5px 10px;
+}

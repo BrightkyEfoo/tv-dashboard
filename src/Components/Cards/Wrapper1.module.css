@@ -1,0 +1,42 @@
+.container {
+  /* min-width: 200px;
+  min-height: 300px; */
+  border-radius: 6px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-template: 40px auto 50px / repeat(4, 1fr);
+  padding: 10px;
+}
+
+.title {
+  grid-column: span 4;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.container > :nth-child(2) {
+  grid-column: span 4;
+}
+
+.edit {
+  background-color: var(--primary-blue);
+  border: none;
+  grid-column: span 3;
+  border-radius: 10px;
+  margin: 4px 15px 10px;
+  color: var(--white-text);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.delete {
+  grid-column: span 1;
+  margin: 4px 15px 10px;
+  border: none;
+  aspect-ratio: 1/1;
+  height: calc(100% - 15px);
+  justify-self: center;
+  border-radius: 50%;
+  background-color: var(--primary-red);
+  color: white;
+}

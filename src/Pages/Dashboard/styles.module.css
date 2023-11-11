@@ -1,0 +1,36 @@
+.container {
+  margin: 0 auto;
+  max-width: 1500px;
+  display: grid;
+  grid-template: 70px auto 70px / repeat(12, 1fr);
+  grid-template-areas:
+    "h h h h h h h h h h h h"
+    "m m c c c c c c c c c c"
+    "f f f f f f f f f f f f";
+  height: 100vh;
+}
+
+.container > :nth-child(3) {
+  grid-area: c;
+  height: calc(100% - 50px);
+  width: calc(100% - 50px);
+  overflow-y: scroll;
+  margin: 25px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-1);
+  overflow-x: hidden;
+  padding: 25px;
+}
+
+.container > :nth-child(3)::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.315);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.container > :nth-child(3)::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: var(--primary-blue);
+}

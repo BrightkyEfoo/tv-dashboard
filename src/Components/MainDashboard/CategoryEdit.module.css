@@ -1,0 +1,84 @@
+.container {
+  position: relative;
+  padding-top: 0 !important;
+}
+
+.title {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff42;
+  backdrop-filter: blur(6px);
+  margin: 0;
+  padding: 20px;
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+.addVideo {
+  position: fixed;
+  top: 105px;
+  right: 90px;
+  height: 50px;
+  width: 50px;
+  border: none;
+  font-size: 17px;
+  background-color: var(--primary-blue);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  z-index: 200;
+}
+
+.addVideo:hover {
+  background-color: var(--secondary-blue);
+}
+
+.subContainer {
+  display: grid;
+  gap: 15px;
+  margin: 15px;
+  grid-template: repeat(2, 1fr) / repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.modalContainer {
+  height: 150px;
+  padding: 15px;
+  background-color: var(--primary-white);
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(4, 1fr);
+  column-gap: 15px;
+  align-items: center;
+}
+
+.modalContainer > p {
+  margin: 0;
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.modalContainer > :nth-child(2) {
+  border: 1px solid var(--secondary-black);
+  border-radius: 8px;
+  height: 35px;
+  grid-column: -3 / -2;
+  background-color: var(--primary-red);
+  color: var(--white-text);
+}
+
+.modalContainer > :last-child {
+  height: 35px;
+  border-radius: 8px;
+  grid-column: -2/-1;
+  background-color: var(--primary-blue);
+  border: 1px solid var(--secondary-black);
+  color: var(--white-text);
+}

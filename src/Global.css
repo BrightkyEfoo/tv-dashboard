@@ -1,0 +1,31 @@
+:root {
+  --primary-black: #000000;
+  --secondary-black: #1c1c1c;
+  --primary-white: #ffffff;
+  --secondary-white: #f0f0f0;
+  --primary-blue: #0000aa;
+  --secondary-blue: #000083;
+  --primary-grey: #282c34;
+  --secondary-grey: #1c1c1c;
+  --primary-red: #eacb86;
+  --secondary-red: #c70000;
+  --primary-green: #00ff00;
+  --secondary-green: #00ff00;
+  --primary-yellow: #ffff00;
+  --secondary-yellow: #ffff00;
+  --primary-text: #141414;
+  --secondary-text: #352f2f;
+  --white-text: #ffffff;
+  --shadow-1: 0 0 10px 2px rgba(0, 0, 0, 0.3);
+}
+
+body {
+  /* fo */
+}
+* {
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}

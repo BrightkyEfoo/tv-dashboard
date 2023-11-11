@@ -1,0 +1,12 @@
+.container {
+  grid-area: f;
+  background-color: var(--primary-blue);
+  display: grid;
+  place-items: center;
+  color: var(--white-text);
+  font-weight: 700;
+}
+
+.container a {
+  color: var(--primary-red);
+}

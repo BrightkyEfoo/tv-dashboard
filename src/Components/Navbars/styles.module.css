@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 70px;
+  background-color: #fff;
+  box-shadow: 0 1px 7px 5px rgba(0, 0, 0, 0.12);
+  grid-area: h;
+}
+
+.logo {
+  height: 60px;
+  width: 60px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  gap: 15px;
+}
+
+.links a {
+  text-decoration: none;
+}

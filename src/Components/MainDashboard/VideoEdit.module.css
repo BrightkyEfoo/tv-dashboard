@@ -1,0 +1,262 @@
+.container {
+  padding-top: 0 !important;
+  display: grid;
+  grid-template: 100px 1fr 1fr / repeat(3, 1fr);
+  /* grid-area: ; */
+  grid-template-areas:
+    "t t t"
+    "v f f"
+    "v f f";
+  position: relative;
+  /* max-height: ; */
+}
+
+.videoContainer {
+  grid-area: v;
+  display: grid;
+  grid-template: 30px auto 40px / repeat(6, 1fr);
+  grid-template-areas:
+    "t t t t t t"
+    "v v v v v v"
+    "b i i i i i";
+  gap: 5px 15px;
+  /* height: calc(50vh - 167.5px); */
+}
+
+.videoContainer > :first-child {
+  grid-area: t;
+  margin: 0;
+}
+
+.videoContainer > video {
+  grid-area: v;
+  background-color: var(--secondary-blue);
+  border-radius: 10px;
+  width: 100%;
+  height: calc(50vh - 47.5px);
+  object-fit: contain;
+}
+
+.videoContainer > button {
+  grid-area: b;
+  background-color: var(--primary-blue);
+  border: none;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+  transition: all ease 300ms;
+}
+
+.videoContainer > button:hover {
+  background-color: var(--secondary-blue);
+}
+.videoContainer > input {
+  grid-area: i;
+}
+
+.imageContainer {
+  grid-area: i;
+  display: grid;
+  grid-template: 30px auto 40px / repeat(6, 1fr);
+  grid-template-areas:
+    "t t t t t t"
+    "v v v v v v"
+    "b i i i i i";
+  gap: 5px 15px;
+  height: calc(50vh - 167.5px);
+}
+
+.imageContainer > :first-child {
+  grid-area: t;
+  margin: 0;
+}
+
+.imageContainer > img {
+  grid-area: v;
+  background-color: var(--secondary-blue);
+  object-fit: contain;
+  border-radius: 10px;
+  width: 100%;
+  border: 1px solid var(--primary-blue);
+  height: calc(50vh - 247.5px);
+}
+
+.imageContainer > button {
+  grid-area: b;
+  background-color: var(--primary-blue);
+  border: none;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+  transition: all ease 300ms;
+}
+
+.imageContainer > button:hover {
+  background-color: var(--secondary-blue);
+}
+
+.imageContainer > input {
+  grid-area: i;
+}
+
+.formContainer {
+  margin-left: 25px;
+  grid-area: f;
+  display: grid;
+  grid-template: repeat(5, 40px) auto / repeat(6, 1fr);
+  grid-template-areas:
+    ". . . . . bd"
+    "t1 t1 t1 t1 t1 t1"
+    "i1 i1 i1 i1 i1 i1"
+    "t2 t2 t2 t2 t2 t2"
+    "i2 i2 i2 i2 i2 i2"
+    ". . . . bs bc";
+}
+
+.formContainer > :nth-child(1) {
+  grid-area: bd;
+  align-self: flex-end;
+  justify-self: center;
+  background-color: var(--primary-red);
+  border: none;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+  transition: all ease 300ms;
+}
+.formContainer > :nth-child(1):hover {
+  background-color: var(--secondary-red);
+}
+
+.formContainer > :nth-child(2) {
+  margin: 0;
+  justify-self: flex-start;
+  grid-area: t1;
+  align-self: center;
+}
+.formContainer > :nth-child(3) {
+  grid-area: i1;
+}
+.formContainer > :nth-child(4) {
+  grid-area: t2;
+  margin: 0;
+  align-self: center;
+  justify-self: flex-start;
+}
+.formContainer > :nth-child(5) {
+  grid-area: i2;
+}
+.formContainer > :nth-child(6) {
+  align-self: flex-end;
+  justify-self: flex-end;
+  grid-area: bs;
+  background-color: var(--primary-blue);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 8px;
+  gap: 5px;
+  padding: 8px;
+  transition: all ease 300ms;
+}
+
+.formContainer > :nth-child(6):hover {
+  background-color: var(--secondary-blue);
+}
+
+.formContainer > :nth-child(7) {
+  align-self: flex-end;
+  justify-self: center;
+  grid-area: bc;
+  background-color: var(--primary-red);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 8px;
+  gap: 5px;
+  padding: 8px;
+  transition: all ease 300ms;
+}
+
+.formContainer > :nth-child(7):hover {
+  background-color: var(--secondary-red);
+}
+
+.title {
+  grid-area: t;
+
+  position: sticky;
+  top: 0;
+  background-color: #ffffff13;
+  backdrop-filter: blur(6px);
+  margin-top: 0;
+  width: 100%;
+}
+
+@media only screen and (max-width: 1300px) {
+  .title {
+    z-index: 5;
+    background-color: #ffffff3b;
+  }
+  .container {
+    grid-template: 100px 1fr 1fr / repeat(2, 1fr);
+    grid-template-areas:
+      "t t"
+      "v v"
+      "f f";
+  }
+  .videoContainer {
+    grid-template: 30px auto 40px / repeat(6, 1fr);
+    grid-template-areas:
+      "t t t t t t"
+      "v v v v v v"
+      "b i i i i i";
+  }
+  .videoContainer > button {
+    justify-self: center;
+    max-height: 40px;
+  }
+  .imageContainer {
+    grid-template: 30px auto 40px / repeat(3, 1fr);
+    grid-template-areas:
+      "t t t"
+      "v v v"
+      "b i i";
+  }
+  .formContainer {
+    grid-template: repeat(4, 40px) auto / repeat(6, 1fr);
+    margin-top: 15px;
+    row-gap: 8px;
+    grid-template-areas:
+      "t1 t1 t1 t1 t1 t1"
+      "i1 i1 i1 i1 i1 i1"
+      "t2 t2 t2 t2 t2 t2"
+      "i2 i2 i2 i2 i2 i2"
+      ".  .  .  .  bs bc";
+  }
+
+  .formContainer > :first-child {
+    position: fixed;
+    top: 120px;
+    right: 50px;
+    z-index: 10;
+  }
+}
