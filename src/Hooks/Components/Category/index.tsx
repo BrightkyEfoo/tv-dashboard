@@ -94,6 +94,7 @@ export const useCategoryEdit = () => {
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleSubmit = async () => {
+    
     if (!categoryId) return;
     categoryService.updateCategoryById(categoryId, { name });
   };

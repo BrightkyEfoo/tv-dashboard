@@ -8,11 +8,11 @@ import VideoEdit from "./VideoEdit";
 
 const Mains = {
   Home: Home,
-  Categories: Categories,
-  CategoryEdit: CategoryEdit,
-  VideoEdit: VideoEdit,
-  Programs: Programs,
-  Bouquets: Bouquets,
-  Stats: Stats,
+  Categories,
+  CategoryEdit,
+  VideoEdit,
+  Programs,
+  Bouquets,
+  Stats,
 };
 export default Mains;

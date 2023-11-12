@@ -23,7 +23,7 @@ const DashboardRouter = () => {
       <Route path="/stats" element={<Mains.Stats />} />
       <Route path="/" element={<Mains.Home />} />
     </Routes>
-  );
+  );  
 };
 
 export default DashboardRouter;
