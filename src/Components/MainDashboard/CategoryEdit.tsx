@@ -13,6 +13,15 @@ import { useRef } from "react";
 import { FaPlus } from "react-icons/fa";
 import { NavigateFunction } from "react-router-dom";
 import styles from "./CategoryEdit.module.css";
+import Emitter from "Utils/EventEmitter/EventEmitter";
+
+export const categoryEditEmitter = new Emitter()
+export const categoryEditEventList = {
+    SET_ID_MODAL_OPEN : "SET_ID_MODAL_OPEN",
+    SET_IS_CREATE_CATEGORY_MODAL_OPEN : "SET_IS_CREATE_CATEGORY_MODAL_OPEN",
+    SET_CATEGORIES : "SET_CATEGORIES",
+    NAVIGATE : "NAVIGATE",
+}
 
 const CategoryEdit = () => {
   const {

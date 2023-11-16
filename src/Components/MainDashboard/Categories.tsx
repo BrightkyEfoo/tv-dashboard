@@ -21,21 +21,17 @@ export const categoryEventList = {
   SET_IS_MODAL_OPEN: "SET_IS_MODAL_OPEN",
   SET_IS_CREATE_MODAL_OPEN: "SET_IS_CREATE_MODAL_OPEN",
   NAVIGATE: "NAVIGATE",
+  DISPATCH: "DISPATCH",
+  SET_CATEGORIES: "SET_CATEGORIES",
 };
 const Categories = () => {
   const {
     categories,
-    navigate,
-    setIsModalOpen,
     isCreateCategoryModalOpen,
-    setIsCreateCategoryModalOpen,
-    dispatch,
     isModalOpen,
     handleClick,
-    setCategories,
     isLoading,
     isError,
-    data,
     error,
   } = useCategory();
   if (isLoading) return <div>Loading...</div>;
@@ -44,23 +40,17 @@ const Categories = () => {
     <CategoriesContext.Provider
       value={{
         isModalOpen,
-        setIsModalOpen,
         isCreateCategoryModalOpen,
-        setIsCreateCategoryModalOpen,
-        setCategories,
       }}
     >
       <div className={styles.container}>
-        <CategoryModal setCategories={setCategories} />
-        <CreateCategoryModal setCategories={setCategories} />
+        <CategoryModal />
+        <CreateCategoryModal />
         <button className={styles.addCategory} onClick={handleClick}>
           <FaPlus />
         </button>
         {renderCategories({
           categories,
-          navigate,
-          setIsModalOpen,
-          dispatch,
         })}
       </div>
     </CategoriesContext.Provider>
@@ -78,14 +68,9 @@ const CategoryContent = (category: Props) => {
   );
 };
 
-const CategoryModal = ({
-  setCategories,
-}: {
-  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
-}) => {
-  const { isModalOpen, handleClose, handleClick, category } = useCategoryModal({
-    setCategories,
-  });
+const CategoryModal = () => {
+  const { isModalOpen, handleClose, handleClick, category } =
+    useCategoryModal();
 
   return (
     <Modal
@@ -107,11 +92,7 @@ const CategoryModal = ({
   );
 };
 
-const CreateCategoryModal = ({
-  setCategories,
-}: {
-  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
-}) => {
+const CreateCategoryModal = () => {
   const {
     isCreateCategoryModalOpen,
     handleClose,
@@ -157,21 +138,16 @@ const renderThumbs = (category: Category) =>
     }
   });
 
-const renderCategories = ({
-  categories,
-  navigate,
-  setIsModalOpen,
-  dispatch,
-}: renderCategoriesArgs) =>
+const renderCategories = ({ categories }: renderCategoriesArgs) =>
   categories?.map((category, idx) => {
     return (
       <Cards.Wrapper1
         name={category.name}
         handleDelete={() => {
-          handleDeleteCategory(category.id, setIsModalOpen, dispatch);
+          handleDeleteCategory(category.id);
         }}
         handleEdit={() => {
-          handleEditCategory(category.id, navigate);
+          handleEditCategory(category.id);
         }}
         key={idx}
       >
