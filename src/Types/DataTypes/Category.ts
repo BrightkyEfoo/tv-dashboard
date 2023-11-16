@@ -3,11 +3,13 @@ import { Id } from "./common/id";
 
 export type CategoryUpdate = {
   name?: string;
-  videos?: Video[];
+  Videos?: Video[];
+  description?: string;
 };
 
 export type Category = {
+  description: string;
   name: string;
-  videos: Video[];
+  Videos: Video[];
   id: Id;
 };

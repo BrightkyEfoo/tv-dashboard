@@ -4,13 +4,18 @@ import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import "./Global.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <div className="App">
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </QueryClientProvider>
     </div>
   );
 }

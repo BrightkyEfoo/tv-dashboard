@@ -10,11 +10,18 @@ import { Props } from "Types/ComponentsProps/CategoryContent";
 import { Category } from "Types/DataTypes/Category";
 import { renderCategoriesArgs } from "Types/Functions/category";
 import { handleDeleteCategory, handleEditCategory } from "Utils/Category";
-import styles from "./Categories.module.css";
 import { FaPlus } from "react-icons/fa";
+import styles from "./Categories.module.css";
+import Emitter from "Utils/EventEmitter/EventEmitter";
 
 const THUMBS_MAX_NUMBER = 6;
 
+export const categoryEmitter = new Emitter();
+export const categoryEventList = {
+  SET_IS_MODAL_OPEN: "SET_IS_MODAL_OPEN",
+  SET_IS_CREATE_MODAL_OPEN: "SET_IS_CREATE_MODAL_OPEN",
+  NAVIGATE: "NAVIGATE",
+};
 const Categories = () => {
   const {
     categories,
@@ -26,7 +33,13 @@ const Categories = () => {
     isModalOpen,
     handleClick,
     setCategories,
+    isLoading,
+    isError,
+    data,
+    error,
   } = useCategory();
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>An error occured {error.message}</div>;
   return (
     <CategoriesContext.Provider
       value={{
@@ -38,12 +51,17 @@ const Categories = () => {
       }}
     >
       <div className={styles.container}>
-        <CategoryModal />
-        <CreateCategoryModal />
+        <CategoryModal setCategories={setCategories} />
+        <CreateCategoryModal setCategories={setCategories} />
         <button className={styles.addCategory} onClick={handleClick}>
           <FaPlus />
         </button>
-        {renderCategories({ categories, navigate, setIsModalOpen, dispatch })}
+        {renderCategories({
+          categories,
+          navigate,
+          setIsModalOpen,
+          dispatch,
+        })}
       </div>
     </CategoriesContext.Provider>
   );
@@ -54,15 +72,21 @@ export default Categories;
 const CategoryContent = (category: Props) => {
   return (
     <div className={styles.contentContainer}>
-      <p className={styles.title}>{category.videos.length} videos</p>
+      <p className={styles.title}>{category.Videos?.length} videos</p>
       <div className={styles.thumbsContainer}>{renderThumbs(category)}</div>
     </div>
   );
 };
 
-const CategoryModal = () => {
-  const { isModalOpen, handleClose, handleClick, category } =
-    useCategoryModal();
+const CategoryModal = ({
+  setCategories,
+}: {
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+}) => {
+  const { isModalOpen, handleClose, handleClick, category } = useCategoryModal({
+    setCategories,
+  });
+
   return (
     <Modal
       open={isModalOpen}
@@ -83,7 +107,11 @@ const CategoryModal = () => {
   );
 };
 
-const CreateCategoryModal = () => {
+const CreateCategoryModal = ({
+  setCategories,
+}: {
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+}) => {
   const {
     isCreateCategoryModalOpen,
     handleClose,
@@ -114,7 +142,7 @@ const CreateCategoryModal = () => {
 
 // renderers
 const renderThumbs = (category: Category) =>
-  category.videos.map((video, idx2) => {
+  category.Videos?.map((video, idx2) => {
     if (idx2 < THUMBS_MAX_NUMBER) {
       return (
         <img

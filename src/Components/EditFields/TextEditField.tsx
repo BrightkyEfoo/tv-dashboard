@@ -2,6 +2,7 @@ import { useTextEditField } from "Hooks/Components/EditFields/TextEditField";
 import { Props } from "Types/ComponentsProps/EditFields/TextEditField";
 import { FaCheck, FaPen, FaTrash } from "react-icons/fa";
 import styles from "./TextEditField.module.css";
+import { FaXmark } from "react-icons/fa6";
 const TextEditField = ({ preText, value, setValue, submit }: Props) => {
   const { handleChange, handleSubmit, isEdit, isLoading, setIsEdit } =
     useTextEditField({ setValue, submit, value });
@@ -28,7 +29,7 @@ const TextEditField = ({ preText, value, setValue, submit }: Props) => {
             type="button"
             onClick={() => setIsEdit(false)}
           >
-            <FaTrash />
+            <FaXmark  />
           </button>
         </>
       ) : (

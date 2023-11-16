@@ -29,3 +29,11 @@ body {
 button {
   cursor: pointer;
 }
+
+div[data-testid="image-color-pick-container"] {
+  display: none;
+}
+
+input.soon-input {
+  cursor: not-allowed;
+}

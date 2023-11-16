@@ -1,3 +1,4 @@
+import { categoryEmitter } from "Components/MainDashboard/Categories";
 import { categoryDeleteModalActions } from "Store/features/modal/categoryDeleteModalSlice";
 import {
   TypeFnDelete,
@@ -10,7 +11,8 @@ export const handleDeleteCategory: TypeFnDelete = (
   dispatch
 ) => {
   dispatch(categoryDeleteModalActions.setCategoryId(id));
-  setIsModalOpen(true);
+  categoryEmitter.emit("set-is-modal-open", true)
+  // setIsModalOpen(true);
 };
 
 export const handleEditCategory: TypeFnEdit = (id, navigate) => {

@@ -7,11 +7,12 @@ import {
   useCategoryEditModal,
 } from "Hooks/Components/Category";
 import { Video } from "Types/DataTypes/common/Video";
-import styles from "./CategoryEdit.module.css";
-import { videoListRendererArgs } from "Types/Functions/categoryEdit";
 import { Id } from "Types/DataTypes/common/id";
-import { NavigateFunction } from "react-router-dom";
+import { videoListRendererArgs } from "Types/Functions/categoryEdit";
+import { useRef } from "react";
 import { FaPlus } from "react-icons/fa";
+import { NavigateFunction } from "react-router-dom";
+import styles from "./CategoryEdit.module.css";
 
 const CategoryEdit = () => {
   const {
@@ -27,7 +28,7 @@ const CategoryEdit = () => {
     handleSubmit,
     navigate,
     setCategory,
-    handleCreateVideo
+    handleCreateVideo,
   } = useCategoryEdit();
   if (!categoryId) {
     return <div>Nothing go back</div>;
@@ -111,7 +112,7 @@ const videoListRenderer = ({
   setIsModalOpen,
   navigate,
 }: videoListRendererArgs) => {
-  return category?.videos.map((video, idx) => {
+  return category?.Videos.map((video, idx) => {
     return (
       <Wrapper1
         key={idx}
@@ -134,11 +135,22 @@ const videoListRenderer = ({
 };
 
 const VideoContent = ({ author, id, imageUrl, title, videoUrl }: Video) => {
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // useEffect(() => {
+  //   const fac = new FastAverageColor();
+  //   fac.getColorAsync(imageUrl).then((color) => {
+  //     console.log(id, " : ", color);
+  //   });
+  // }, []);
+
   return (
-    <div>
-      <p>{author}</p>
-      <img src={imageUrl} alt="video-thumb" />
-    </div>
+    <>
+      <div className={styles.videoContent}>
+        <p>{author}</p>
+        <img ref={imgRef} src={imageUrl} alt="video-thumb" />
+      </div>
+    </>
   );
 };
 

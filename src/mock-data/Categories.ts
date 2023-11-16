@@ -1,7 +1,7 @@
 const categories = [
   {
     name: "Principal Paradigm Administrator",
-    videos: [
+    Videos :  [
       {
         videoUrl: "https://oscar.net",
         imageUrl: "https://placehold.jp/343fd5/ffffff/150x150.png",
@@ -77,7 +77,7 @@ const categories = [
   },
   {
     name: "Dynamic Security Associate",
-    videos: [
+    Videos :  [
       {
         videoUrl: "http://seamus.com",
         imageUrl: "https://placehold.jp/343fd5/ffffff/150x150.png",
@@ -153,7 +153,7 @@ const categories = [
   },
   {
     name: "Central Accounts Consultant",
-    videos: [
+    Videos :  [
       {
         videoUrl: "http://taurean.net",
         imageUrl: "https://placehold.jp/343fd5/ffffff/150x150.png",
@@ -229,7 +229,7 @@ const categories = [
   },
   {
     name: "Direct Directives Supervisor",
-    videos: [
+    Videos :  [
       {
         videoUrl: "https://tre.name",
         imageUrl: "https://placehold.jp/343fd5/ffffff/150x150.png",
@@ -305,7 +305,7 @@ const categories = [
   },
   {
     name: "Product Web Director",
-    videos: [
+    Videos :  [
       {
         videoUrl: "http://reuben.info",
         imageUrl: "https://placehold.jp/343fd5/ffffff/150x150.png",
@@ -381,7 +381,7 @@ const categories = [
   },
   {
     name: "Senior Group Supervisor",
-    videos: [
+    Videos :  [
       {
         videoUrl: "http://isadore.name",
         imageUrl: "https://placehold.jp/343fd5/ffffff/150x150.png",
@@ -457,7 +457,7 @@ const categories = [
   },
   {
     name: "Customer Interactions Technician",
-    videos: [
+    Videos :  [
       {
         videoUrl: "https://linnea.com",
         imageUrl: "https://placehold.jp/343fd5/ffffff/150x150.png",
@@ -533,7 +533,7 @@ const categories = [
   },
   {
     name: "Product Intranet Technician",
-    videos: [
+    Videos :  [
       {
         videoUrl: "https://kenneth.com",
         imageUrl: "https://placehold.jp/343fd5/ffffff/150x150.png",

@@ -10,6 +10,8 @@ import { findByKey } from "Utils/Common/ArrayOfObject";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { categoryEmitter } from "Components/MainDashboard/Categories";
 
 export const CategoriesContext = createContext<{
   isModalOpen: boolean;
@@ -48,17 +50,44 @@ export const useCategory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] =
     useState(false);
-  const [categories, setCategories] = useState<Category[]>();
-  useEffect(() => {
-    const asynchronusFn = async () => {
-      const tempCategories = await categoryService.getAllCategories();
-      setCategories(tempCategories);
-    };
-    asynchronusFn();
-  }, []);
-  const handleClick = (e: ButtonClickEvent) => {
-    setIsCreateCategoryModalOpen(true);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  const fetchCategory = () => {
+    return new Promise<Category[]>(async (resolve, reject) => {
+      try {
+        const tempCategories = await categoryService.getAllCategories();
+        setCategories(tempCategories);
+        resolve(tempCategories);
+      } catch (error: any) {
+        // resolve([])
+        reject(error);
+      }
+    });
   };
+
+  const { isLoading, isError, data, error } = useQuery<
+    Category[],
+    any,
+    Category[],
+    "categories"
+  >("categories", fetchCategory);
+
+  const handleClick = (e: ButtonClickEvent) => {
+    // setIsCreateCategoryModalOpen(true);
+    categoryEmitter.emit("set-is-create-modal-open" , true)
+  };
+
+  // handle events
+  categoryEmitter.on("set-is-modal-open", (data: boolean) => {
+    setIsModalOpen((prev) => data);
+  });
+
+  categoryEmitter.on("set-is-create-modal-open" , (data : boolean) => {
+    setIsCreateCategoryModalOpen(prev => data)
+  })
+
+  // emit events
+
   return {
     categories,
     navigate,
@@ -69,6 +98,10 @@ export const useCategory = () => {
     isModalOpen,
     handleClick,
     setCategories,
+    isLoading,
+    isError,
+    data,
+    error,
   };
 };
 
@@ -94,9 +127,11 @@ export const useCategoryEdit = () => {
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleSubmit = async () => {
-    
     if (!categoryId) return;
-    categoryService.updateCategoryById(categoryId, { name });
+    categoryService.updateCategoryById(categoryId, { name }).then((res) => {
+      console.log("resC", res);
+      setCategory(res);
+    });
   };
   const handleCreateVideo = (e: ButtonClickEvent) => {
     navigate(`video/create`);
@@ -118,7 +153,12 @@ export const useCategoryEdit = () => {
   };
 };
 
-export const useCategoryModal = () => {
+export const useCategoryModal = ({
+  setCategories,
+}: {
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+}) => {
+  // const dispatch()
   const { isModalOpen, setIsModalOpen } = useContext(CategoriesContext);
   const handleClose = () => setIsModalOpen(false);
   const categoryId = useSelector(
@@ -127,7 +167,14 @@ export const useCategoryModal = () => {
   const categories = useSelector((state: RootState) => state.category);
   const category = findByKey(categories, "id", categoryId);
   const handleClick = () => {
-    categoryService.deleteCategoryById(categoryId);
+    categoryService.deleteCategoryById(categoryId).then(() => {
+      // setIsModalOpen(false);
+      categoryService.getAllCategories().then((tempCategories) => {
+        setCategories(tempCategories);
+        console.log("tempCategories", tempCategories);
+        setIsModalOpen(false);
+      });
+    });
   };
   return {
     isModalOpen,
@@ -144,7 +191,8 @@ export const useCreateCategoryModal = () => {
     setCategories,
   } = useContext(CategoriesContext);
   const [title, setTitle] = useState("");
-  const handleClose = () => setIsCreateCategoryModalOpen(false);
+  const handleClose = () => categoryEmitter.emit("set-is-create-modal-open",false);
+  // const handleClose = () => setIsCreateCategoryModalOpen(false);
   const categoryId = useSelector(
     (state: RootState) => state.categoryDeleteModal.categoryId
   );
@@ -155,10 +203,12 @@ export const useCreateCategoryModal = () => {
       .createCategory({
         name: title,
         id: nanoid(15),
-        videos: [],
+        Videos: [],
+        description: "a description",
       })
       .then((_) => {
         setCategories(_);
+        console.log("_", _);
         setIsCreateCategoryModalOpen(false);
       });
   };
@@ -204,7 +254,7 @@ export const useCategoryEditModal = () => {
       });
     });
   };
-  // const video = findByKey(category.videos, "id", videoId);
+  // const video = findByKey(category.Videos, "id", videoId);
   return {
     isModalOpen,
     handleClose,
