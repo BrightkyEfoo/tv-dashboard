@@ -8,8 +8,8 @@
 
 .addCategory {
   position: absolute;
-  top: 105px;
-  right: 90px;
+  top: 80px;
+  right: 10px;
   height: 50px;
   width: 50px;
   border: none;
@@ -126,4 +126,18 @@
   background-color: var(--primary-red);
   border: none;
   border-radius: 15px;
+}
+
+@media only screen and (max-width: 590px) {
+  .addCategory {
+    top : 200px;
+    right : 20px
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .addCategory {
+    top : 280px;
+    right : 20px
+  }
 }

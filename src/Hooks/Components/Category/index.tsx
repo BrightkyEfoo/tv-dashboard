@@ -15,6 +15,10 @@ import {
   categoryEmitter,
   categoryEventList,
 } from "Components/MainDashboard/Categories";
+import {
+  categoryEditEmitter,
+  categoryEditEventList,
+} from "Components/MainDashboard/CategoryEdit";
 
 export const CategoriesContext = createContext<{
   isModalOpen: boolean;
@@ -96,14 +100,10 @@ export const useCategory = () => {
 
   return {
     categories,
-    navigate,
-    setIsModalOpen,
     isCreateCategoryModalOpen,
-    setIsCreateCategoryModalOpen,
     dispatch,
     isModalOpen,
     handleClick,
-    setCategories,
     isLoading,
     isError,
     data,
@@ -143,24 +143,41 @@ export const useCategoryEdit = () => {
     navigate(`video/create`);
   };
 
-
   // HANDLE EVENTS
+  categoryEditEmitter.on(categoryEditEventList.NAVIGATE, (data: any) => {
+    navigate(data);
+  });
+
+  categoryEditEmitter.on(
+    categoryEditEventList.SET_CATEGORY,
+    (data: Category | null | undefined) => {
+      setCategory((prev) => data);
+    }
+  );
+
+  categoryEditEmitter.on(
+    categoryEditEventList.SET_IS_MODAL_OPEN,
+    (data: boolean) => {
+      setIsModalOpen(data);
+    }
+  );
+
+  categoryEditEmitter.on(categoryEditEventList.SET_VIDEO_ID, (data: Id) => {
+    setVideoId(data);
+  });
+
   
 
   // EMIT EVENTS
   return {
     categoryId,
     videoId,
-    setVideoId,
-    setIsModalOpen,
     isModalOpen,
     isLoading,
     category,
-    setCategory,
     handleChange,
     name,
     handleSubmit,
-    navigate,
     handleCreateVideo,
   };
 };
@@ -235,7 +252,8 @@ export const useCategoryEditModal = () => {
   const { isModalOpen, category, videoId } = useContext(CategoriesEditContext);
   const [video, setVideo] = useState<Video>();
   const [isLoading, setIsLoading] = useState(false);
-  const handleClose = () => setIsModalOpen(false);
+  const handleClose = () =>
+    categoryEditEmitter.emit(categoryEditEventList.SET_IS_MODAL_OPEN, false);
   useEffect(() => {
     const asynchronusFn = async () => {
       if (category?.id) {
@@ -249,17 +267,20 @@ export const useCategoryEditModal = () => {
   const handleClick = () => {
     setIsLoading(true);
     videoService.deleteVideoById(videoId, category!.id).finally(() => {
-      setIsLoading(false);
-      setIsModalOpen(false);
-      categoryService.getCategoryById(category!.id).then((_) => {
-        if (!_) {
-          return;
-        }
-        setCategory(_);
-      });
+      categoryEditEmitter.emit(categoryEditEventList.SET_IS_MODAL_OPEN, false);
+      categoryService
+        .getCategoryById(category!.id)
+        .then((_) => {
+          if (!_) {
+            return;
+          }
+          categoryEditEmitter.emit(categoryEditEventList.SET_CATEGORY, _);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     });
   };
-  // const video = findByKey(category.Videos, "id", videoId);
   return {
     isModalOpen,
     handleClose,

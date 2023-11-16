@@ -34,3 +34,25 @@
   border-radius: 8px;
   background-color: var(--primary-blue);
 }
+
+@media only screen and (max-width: 590px) {
+  .container {
+    grid-template: 70px 125px auto 70px / repeat(12, 1fr);
+    grid-template-areas:
+      "h h h h h h h h h h h h"
+      "m m m m m m m m m m m m"
+      "c c c c c c c c c c c c"
+      "f f f f f f f f f f f f";
+  }
+}
+
+@media only screen and (max-width: 389px) {
+  .container {
+    grid-template: 70px 200px auto 70px / repeat(12, 1fr);
+    grid-template-areas:
+      "h h h h h h h h h h h h"
+      "m m m m m m m m m m m m"
+      "c c c c c c c c c c c c"
+      "f f f f f f f f f f f f";
+  }
+}

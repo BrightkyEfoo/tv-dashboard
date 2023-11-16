@@ -6,7 +6,7 @@
   background-color: var(--primary-blue);
   border-radius: 8px;
   display: grid;
-  grid-template: repeat(10, 1fr) / repeat(3, 1fr);
+  grid-template: repeat(4, 40px) repeat(4, 1fr) repeat(2, 40px)/ repeat(3, 1fr);
   gap: 15px;
   min-width: 175px;
   align-content: start;
@@ -45,6 +45,8 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   padding: 5px 8px;
+  max-height: 45px;
+
 }
 
 .item > svg {
@@ -69,4 +71,25 @@
   color: white;
   text-transform: uppercase;
   align-self: flex-end;
+}
+
+@media only screen and (max-width: 590px) {
+  .container {
+    grid-template: 1fr / repeat(auto-fit, minmax(150px, 1fr));
+    gap: 5px;
+    height: fit-content;
+  }
+  .container > * {
+    grid-row: auto;
+    grid-column: auto;
+  }
+  .item { 
+    max-height: 32px;
+  }
+  .button {
+    display: none;
+  }
+  .contactTitle {
+    display: none;
+  }
 }

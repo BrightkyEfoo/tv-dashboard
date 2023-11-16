@@ -21,8 +21,8 @@
 
 .addVideo {
   position: fixed;
-  top: 105px;
-  right: 90px;
+  top: 80px;
+  right: 10px;
   height: 50px;
   width: 50px;
   border: none;
@@ -87,4 +87,18 @@
   background-color: var(--primary-blue);
   border: 1px solid var(--secondary-black);
   color: var(--white-text);
+}
+
+@media only screen and (max-width: 590px) {
+  .addVideo {
+    top : 200px;
+    right : 20px
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .addVideo {
+    top : 280px;
+    right : 20px
+  }
 }

@@ -11,32 +11,29 @@ import { Id } from "Types/DataTypes/common/id";
 import { videoListRendererArgs } from "Types/Functions/categoryEdit";
 import { useRef } from "react";
 import { FaPlus } from "react-icons/fa";
-import { NavigateFunction } from "react-router-dom";
 import styles from "./CategoryEdit.module.css";
 import Emitter from "Utils/EventEmitter/EventEmitter";
 
-export const categoryEditEmitter = new Emitter()
+export const categoryEditEmitter = new Emitter();
 export const categoryEditEventList = {
-    SET_ID_MODAL_OPEN : "SET_ID_MODAL_OPEN",
-    SET_IS_CREATE_CATEGORY_MODAL_OPEN : "SET_IS_CREATE_CATEGORY_MODAL_OPEN",
-    SET_CATEGORIES : "SET_CATEGORIES",
-    NAVIGATE : "NAVIGATE",
-}
+  // SET_IS_CREATE_CATEGORY_MODAL_OPEN: "SET_IS_CREATE_CATEGORY_MODAL_OPEN",
+  // SET_CATEGORIES: "SET_CATEGORIES",
+  NAVIGATE: "NAVIGATE",
+  SET_IS_MODAL_OPEN: "SET_IS_MODAL_OPEN",
+  SET_VIDEO_ID: "SET_VIDEO_ID",
+  SET_CATEGORY: "SET_CATEGORY",
+};
 
 const CategoryEdit = () => {
   const {
     categoryId,
     isLoading,
     isModalOpen,
-    setIsModalOpen,
     category,
     videoId,
-    setVideoId,
     handleChange,
     name,
     handleSubmit,
-    navigate,
-    setCategory,
     handleCreateVideo,
   } = useCategoryEdit();
   if (!categoryId) {
@@ -46,11 +43,8 @@ const CategoryEdit = () => {
       <CategoriesEditContext.Provider
         value={{
           isModalOpen,
-          setIsModalOpen,
           category,
           videoId,
-          setVideoId,
-          setCategory,
         }}
       >
         <div className={styles.container}>
@@ -70,9 +64,6 @@ const CategoryEdit = () => {
           <div className={styles.subContainer}>
             {videoListRenderer({
               category,
-              setVideoId,
-              setIsModalOpen,
-              navigate,
             })}
           </div>
           <CategoryEditModal />
@@ -86,52 +77,37 @@ const CategoryEdit = () => {
 
 export default CategoryEdit;
 
-const vidRendererHandleDeleteGen = ({
-  setVideoId,
-  setIsModalOpen,
-  id,
-}: {
-  setVideoId: (v: Id) => void;
-  setIsModalOpen: (v: boolean) => void;
-  id: Id;
-}) => {
+const vidRendererHandleDeleteGen = ({ id }: { id: Id }) => {
   return () => {
-    setVideoId(id);
-    setIsModalOpen(true);
+    categoryEditEmitter.emit(categoryEditEventList.SET_VIDEO_ID, id);
+    categoryEditEmitter.emit(categoryEditEventList.SET_IS_MODAL_OPEN, true);
   };
 };
 
 const videRendererHandleEditGen = ({
-  navigate,
   categoryId,
   videoId,
 }: {
-  navigate: NavigateFunction;
   categoryId: Id;
   videoId: Id;
 }) => {
   return () => {
-    navigate(`video/${videoId}`);
+    categoryEditEmitter.emit(
+      categoryEditEventList.NAVIGATE,
+      `video/${videoId}`
+    );
   };
 };
 
-const videoListRenderer = ({
-  category,
-  setVideoId,
-  setIsModalOpen,
-  navigate,
-}: videoListRendererArgs) => {
+const videoListRenderer = ({ category }: videoListRendererArgs) => {
   return category?.Videos.map((video, idx) => {
     return (
       <Wrapper1
         key={idx}
         handleDelete={vidRendererHandleDeleteGen({
-          setVideoId,
           id: video.id,
-          setIsModalOpen,
         })}
         handleEdit={videRendererHandleEditGen({
-          navigate,
           categoryId: category.id,
           videoId: video.id,
         })}
@@ -145,13 +121,6 @@ const videoListRenderer = ({
 
 const VideoContent = ({ author, id, imageUrl, title, videoUrl }: Video) => {
   const imgRef = useRef<HTMLImageElement>(null);
-
-  // useEffect(() => {
-  //   const fac = new FastAverageColor();
-  //   fac.getColorAsync(imageUrl).then((color) => {
-  //     console.log(id, " : ", color);
-  //   });
-  // }, []);
 
   return (
     <>
